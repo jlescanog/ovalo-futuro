@@ -25,14 +25,14 @@ export default function EscuelaAlternativaPage() {
               </div>
               <div className="p-12">
                 <h3 className="text-dorado font-bold text-xs tracking-widest uppercase mb-4">MÉTODO</h3>
-                <p className="text-navy font-bold text-lg italic">"Aprender haciendo, fallar rápido, iterar constantemente."</p>
+                <p className="text-navy font-bold text-lg italic">&quot;Aprender haciendo, fallar rápido, iterar constantemente.&quot;</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="order-2 md:order-1 p-12">
                 <h3 className="text-dorado font-bold text-xs tracking-widest uppercase mb-4">COMUNIDAD</h3>
-                <p className="text-navy font-bold text-lg italic">"El conocimiento es colectivo; la ejecución es individual."</p>
+                <p className="text-navy font-bold text-lg italic">&quot;El conocimiento es colectivo; la ejecución es individual.&quot;</p>
               </div>
               <div className="order-1 md:order-2 bg-blanco p-12 border border-navy/10">
                 <h2 className="text-2xl font-bold text-navy mb-6 tracking-tight">APRENDIZAJE COLABORATIVO</h2>

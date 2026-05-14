@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -24,6 +25,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-crema text-texto-oscuro selection:bg-coral-xs selection:text-coral font-mono">
         {children}
+        <WhatsAppButton />
       </body>
     </html>
   );

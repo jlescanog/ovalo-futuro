@@ -73,7 +73,7 @@ export default function Home() {
             <div className="order-2 md:order-1">
               <div className="bg-blanco p-2 md:p-12 border-l-4 border-coral">
                 <blockquote className="text-2xl font-bold text-navy tracking-tight leading-relaxed italic">
-                  "La mentoría 1-a-1 aceleró mi carrera técnica en 6 meses más que 4 años de universidad."
+                  &quot;La mentoría 1-a-1 aceleró mi carrera técnica en 6 meses más que 4 años de universidad.&quot;
                 </blockquote>
                 <p className="mt-8 text-texto-muted font-bold text-xs tracking-widest uppercase">— ESTUDIANTE OVALO 2025</p>
               </div>
