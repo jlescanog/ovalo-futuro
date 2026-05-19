@@ -35,7 +35,7 @@ export default function RootLayout({
       lang="es"
       className={`${jetbrainsMono.variable} antialiased`}
     >
-      <body className="min-h-screen bg-crema text-texto-oscuro selection:bg-coral-xs selection:text-coral font-mono">
+      <body className="min-h-screen flex flex-col bg-crema text-texto-oscuro selection:bg-coral-xs selection:text-coral font-mono">
         <Navbar />
         {children}
         <Footer />
