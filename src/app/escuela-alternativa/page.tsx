@@ -1,11 +1,13 @@
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Escuela Alternativa',
+  description: 'Modelo educativo a distancia que prioriza la autonomía, el pensamiento crítico y la ejecución de proyectos reales.',
+};
 
 export default function EscuelaAlternativaPage() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <main className="flex-grow pt-40 pb-24">
+    <main className="flex-grow pt-40 pb-24">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl">
             <span className="text-coral font-bold text-xs tracking-[0.2em] uppercase">Modelo Pedagógico</span>
@@ -44,7 +46,5 @@ export default function EscuelaAlternativaPage() {
           </div>
         </div>
       </main>
-      <Footer />
-    </div>
   );
 }

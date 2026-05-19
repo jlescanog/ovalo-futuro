@@ -30,11 +30,11 @@ export default function Footer() {
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-6 mt-20 pt-8 border-t border-blanco/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-blanco/40 uppercase tracking-widest">
-        <p>&copy; {new Date().getFullYear()} OVALO FUTURO. TODOS LOS DERECHOS RESERVADOS.</p>
-        <div className="flex gap-8">
-          <span>INSTAGRAM</span>
-          <span>LINKEDIN</span>
-          <span>X</span>
+        <p suppressHydrationWarning>&copy; {new Date().getFullYear()} OVALO FUTURO. TODOS LOS DERECHOS RESERVADOS.</p>
+        <div className="flex gap-8" role="list" aria-label="Redes sociales">
+          <span role="listitem">INSTAGRAM</span>
+          <span role="listitem">LINKEDIN</span>
+          <span role="listitem">X</span>
         </div>
       </div>
     </footer>

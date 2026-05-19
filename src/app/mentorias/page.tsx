@@ -1,11 +1,14 @@
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import type { Metadata } from 'next';
+import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Mentorías',
+  description: 'Acelera tu crecimiento profesional con mentorías 1-a-1 con expertos de la industria.',
+};
 
 export default function MentoriasPage() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <main className="flex-grow pt-40 pb-24">
+    <main className="flex-grow pt-40 pb-24">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center mb-24">
             <div>
@@ -39,15 +42,16 @@ export default function MentoriasPage() {
                     <option>Product Design</option>
                   </select>
                 </div>
-                <button type="button" className="w-full bg-coral text-blanco py-4 font-bold text-sm tracking-widest hover:bg-navy transition-all">
+                <Link
+                  href="/contacto"
+                  className="block w-full bg-coral text-blanco py-4 font-bold text-sm tracking-widest hover:bg-navy transition-all text-center"
+                >
                   ENVIAR SOLICITUD
-                </button>
+                </Link>
               </form>
             </div>
           </div>
         </div>
       </main>
-      <Footer />
-    </div>
   );
 }

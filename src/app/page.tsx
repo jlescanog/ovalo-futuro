@@ -1,13 +1,13 @@
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Inicio',
+};
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      
-      <main className="flex-grow pt-20">
+    <main className="flex-grow pt-20">
         {/* HERO SECTION */}
         <section className="bg-crema py-24 md:py-40 border-b border-navy/5">
           <div className="max-w-7xl mx-auto px-6 text-center">
@@ -50,15 +50,15 @@ export default function Home() {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
-                { title: 'Desarrollo Fullstack', category: 'TECNOLOGÍA', desc: 'Domina las herramientas modernas de desarrollo web.' },
-                { title: 'Diseño de Sistemas', category: 'ARQUITECTURA', desc: 'Aprende a escalar aplicaciones de alto impacto.' },
-                { title: 'Inteligencia Artificial', category: 'DATA', desc: 'Implementación práctica de modelos generativos.' },
-              ].map((item, i) => (
-                <div key={i} className="group bg-crema p-10 border border-navy/5 hover:border-coral/20 transition-all">
+                { slug: 'ingles', title: 'Inglés', category: 'IDIOMAS', desc: 'Programa intensivo de inglés técnico y conversacional orientado al mundo digital.' },
+                { slug: 'ia-docentes', title: 'IA para Docentes', category: 'EDTECH', desc: 'Capacitación en herramientas de inteligencia artificial para transformar la práctica docente.' },
+                { slug: 'ia-alumnos', title: 'IA para Alumnos', category: 'TECNOLOGÍA', desc: 'Introducción práctica a la inteligencia artificial para estudiantes de todas las edades.' },
+              ].map((item) => (
+                <div key={item.slug} className="group bg-crema p-10 border border-navy/5 hover:border-coral/20 transition-all">
                   <span className="text-texto-muted text-[10px] font-bold tracking-[0.3em] uppercase">{item.category}</span>
                   <h3 className="text-xl font-bold text-navy mt-4 mb-6 tracking-tight group-hover:text-coral transition-colors">{item.title}</h3>
                   <p className="text-texto-muted text-sm leading-relaxed mb-8">{item.desc}</p>
-                  <Link href={`/cursos/${i}`} className="text-navy font-bold text-xs tracking-widest group-hover:translate-x-2 transition-transform inline-block">
+                  <Link href={`/cursos/${item.slug}`} className="text-navy font-bold text-xs tracking-widest group-hover:translate-x-2 transition-transform inline-block">
                     MÁS INFORMACIÓN &rarr;
                   </Link>
                 </div>
@@ -136,8 +136,5 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      <Footer />
-    </div>
   );
 }

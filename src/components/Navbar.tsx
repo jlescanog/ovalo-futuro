@@ -37,10 +37,12 @@ export default function Navbar() {
 
         {/* Mobile Menu Toggle Button */}
         <div className="lg:hidden flex items-center">
-          <button 
+          <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="text-navy hover:text-coral transition-colors p-2"
-            aria-label="Toggle menu"
+            aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
           >
             {isMenuOpen ? (
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
@@ -57,7 +59,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-crema border-b border-navy/5 absolute top-20 left-0 w-full shadow-xl">
+        <div id="mobile-menu" className="lg:hidden bg-crema border-b border-navy/5 absolute top-20 left-0 w-full shadow-xl">
           <div className="px-6 py-6 flex flex-col gap-4">
             <Link 
               href="/cursos" 
