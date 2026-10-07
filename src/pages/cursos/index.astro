@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import { courses } from '../../lib/courses';
+---
+
+<Layout
+  title="Programas"
+  description="Programas de inglés, IA para docentes e IA para estudiantes. Encuentra tu próximo paso con Óvalo Futuro."
+>
+  <section class="container page-intro">
+    <span class="eyebrow">PROGRAMAS · CADA CAMINO ES DIFERENTE</span>
+    <h1>
+      Aprende algo nuevo.
+      <br />
+      <em>Descubre algo en ti.</em>
+    </h1>
+    <p>
+      Idiomas, tecnología y acompañamiento humano para desarrollar las habilidades que el mundo
+      demanda hoy.
+    </p>
+  </section>
+  <section class="container page-content program-grid">
+    {Object.entries(courses).map(([slug, course], i) => (
+      <a href={`/cursos/${slug}`} class={`program-card ${['sage', 'sand', 'lilac'][i]}`}>
+        <div class="program-art">
+          <span class="art-index">0{i + 1} /</span>
+          <Icon name={['globe', 'spark', 'book'][i]} size={60} />
+          <span class="art-phrase">{course.title}</span>
+          <span class="art-orbit" aria-hidden="true"></span>
+        </div>
+        <div class="program-body">
+          <span class="eyebrow">{course.category}</span>
+          <h3>{course.title}</h3>
+          <p>{course.description}</p>
+          <div class="tags">
+            <span>{course.duration}</span>
+            <span>{course.level}</span>
+          </div>
+          <div class="card-link">
+            Ver el programa <Icon name="diagonal" size={20} />
+          </div>
+        </div>
+      </a>
+    ))}
+  </section>
+</Layout>

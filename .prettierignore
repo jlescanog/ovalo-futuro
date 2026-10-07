@@ -1,0 +1,7 @@
+node_modules
+.pnpm-store
+.astro
+dist
+.vercel
+pnpm-lock.yaml
+public/images

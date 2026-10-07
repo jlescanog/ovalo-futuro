@@ -1,0 +1,128 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { site, whatsapp } from '../lib/site';
+---
+
+<Layout
+  title="Conversemos"
+  description="Contacta con Hassan para aprender inglés, recibir una mentoría o trabajar con tu colegio."
+>
+  <section class="container page-intro">
+    <span class="eyebrow">EL PRIMER PASO ES UNA CONVERSACIÓN</span>
+    <h1>
+      Cuéntame tu idea.
+      <br />
+      <em>Construyamos el camino.</em>
+    </h1>
+  </section>
+  <section class="container contact-grid">
+    <div>
+      <p>
+        ¿Quieres mejorar tu inglés, explorar nuevas herramientas o transformar la enseñanza en tu
+        institución? Me encantará conocer lo que tienes en mente.
+      </p>
+      <div class="contact-details">
+        <div>
+          <span>POR CORREO</span>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </div>
+        <div>
+          <span>POR WHATSAPP</span>
+          <a href={whatsapp()} target="_blank" rel="noopener noreferrer">
+            +51 982 355 550 ↗
+          </a>
+        </div>
+        <div>
+          <span>UNA MIRADA GLOBAL</span>
+          <p>Desde Perú, conectando con el mundo.</p>
+        </div>
+      </div>
+    </div>
+    <form
+      class="contact-form"
+      id="contact-form"
+      data-phone={site.phone}
+      action={whatsapp()}
+      method="get"
+    >
+      <div class="form-field">
+        <label for="name">¿Cómo te llamas?</label>
+        <input
+          id="name"
+          name="name"
+          autocomplete="name"
+          required
+          maxlength="100"
+          placeholder="Tu nombre"
+        />
+      </div>
+      <div class="form-field">
+        <label for="interest">¿Qué tienes en mente?</label>
+        <select id="interest" name="interest">
+          <option value="Inglés">Quiero aprender inglés</option>
+          <option value="Mentoría">Busco una mentoría</option>
+          <option value="Colegios">Asesoría para mi colegio</option>
+          <option value="IA para Docentes">IA para docentes</option>
+          <option value="IA para Alumnos">IA para estudiantes</option>
+          <option value="Becas">Quiero conocer las becas</option>
+          <option value="Otro">Algo más</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="message">Cuéntame un poco más</label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          minlength="10"
+          maxlength="1500"
+          rows="4"
+          placeholder="Me gustaría…"
+        ></textarea>
+      </div>
+      <p class="form-note">
+        Al continuar se abrirá WhatsApp con tu mensaje preparado. Tú decides cuándo enviarlo.
+        Consulta la <a href="/privacidad">información de privacidad</a>.
+      </p>
+      <button type="submit" class="button">
+        Preparar mi mensaje <Icon name="diagonal" size={18} />
+      </button>
+      <p class="form-status" id="contact-status" aria-live="polite"></p>
+      <noscript>
+        <p class="form-note">
+          Para personalizar el mensaje, activa JavaScript o{' '}
+          <a href={whatsapp()}>escríbenos directamente por WhatsApp</a>.
+        </p>
+      </noscript>
+    </form>
+  </section>
+  <script>
+    function setupContact() {
+      const form = document.querySelector<HTMLFormElement>('#contact-form');
+      if (!form || form.dataset.ready) return;
+      form.dataset.ready = 'true';
+      const interest = document.querySelector<HTMLSelectElement>('#interest');
+      const requested = new URLSearchParams(location.search).get('interes');
+      if (interest && requested) {
+        const option = Array.from(interest.options).find(
+          (option) => option.value.toLowerCase() === requested.toLowerCase(),
+        );
+        if (option) interest.value = option.value;
+      }
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        const data = new FormData(form);
+        const text = `Hola Hassan, soy ${String(data.get('name')).trim()}. Me interesa: ${data.get('interest')}.\n\n${String(data.get('message')).trim()}`;
+        const status = document.querySelector('#contact-status');
+        if (status) status.textContent = 'Abriendo WhatsApp con tu mensaje. Aún no se ha enviado.';
+        window.location.assign(
+          `https://wa.me/${form.dataset.phone}?text=${encodeURIComponent(text)}`,
+        );
+      });
+    }
+    setupContact();
+    document.addEventListener('astro:page-load', setupContact);
+  </script>
+</Layout>

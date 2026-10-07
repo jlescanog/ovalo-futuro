@@ -1,0 +1,84 @@
+---
+import Icon from './Icon.astro';
+const links = [
+  { label: 'Sobre Hassan', href: '/#hassan' },
+  { label: 'Programas', href: '/#programas' },
+  { label: 'Para colegios', href: '/#colegios' },
+  { label: 'El journal', href: '/blog' },
+];
+---
+
+<header class="site-header">
+  <div class="container nav-inner">
+    <a href="/" class="brand" aria-label="Óvalo Futuro, inicio">
+      <span class="brand-symbol" aria-hidden="true">
+        <i></i>
+        <i></i>
+        <i></i>
+      </span>
+      <span>
+        óvalo futuro<small>POR HASSAN</small>
+      </span>
+    </a>
+    <nav aria-label="Navegación principal" id="main-nav">
+      {links.map((link) => (
+        <a href={link.href} aria-current={Astro.url.pathname === link.href ? 'page' : undefined}>
+          {link.label}
+        </a>
+      ))}
+      <a class="button button-small" href="/contacto">
+        Conversemos <Icon name="diagonal" size={16} />
+      </a>
+    </nav>
+    <button
+      class="menu-toggle"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="main-nav"
+    >
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+<script>
+  function setupMenu() {
+    const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+    const nav = document.querySelector<HTMLElement>('#main-nav');
+    if (!toggle || !nav || toggle.dataset.ready) return;
+    toggle.dataset.ready = 'true';
+    const abort = new AbortController();
+    function close() {
+      toggle!.setAttribute('aria-expanded', 'false');
+      toggle!.setAttribute('aria-label', 'Abrir menú');
+      nav!.classList.remove('is-open');
+    }
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') !== 'true';
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      nav.classList.toggle('is-open', open);
+    });
+    nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', close));
+    document.addEventListener(
+      'keydown',
+      (event) => {
+        if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+          close();
+          toggle.focus();
+        }
+      },
+      { signal: abort.signal },
+    );
+    document.addEventListener(
+      'click',
+      (event) => {
+        if (!event.composedPath().includes(nav) && !event.composedPath().includes(toggle)) close();
+      },
+      { signal: abort.signal },
+    );
+    document.addEventListener('astro:before-swap', () => abort.abort(), { once: true });
+  }
+  setupMenu();
+  document.addEventListener('astro:page-load', setupMenu);
+</script>

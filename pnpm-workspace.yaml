@@ -1,6 +1,6 @@
 allowBuilds:
+  esbuild: true
   sharp: false
   unrs-resolver: false
-ignoredBuiltDependencies:
-  - sharp
-  - unrs-resolver
+overrides:
+  '@vitejs/plugin-react': 6.1.0

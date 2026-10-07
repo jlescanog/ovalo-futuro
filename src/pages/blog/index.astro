@@ -1,0 +1,69 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { publishedPosts, categories } from '../../lib/site';
+const posts = await publishedPosts();
+---
+
+<Layout
+  title="El journal"
+  description="Ideas y recursos sobre inglés, educación e inteligencia artificial. Un espacio para seguir aprendiendo."
+>
+  <section class="container page-intro">
+    <span class="eyebrow">EL JOURNAL · IDEAS SIN FRONTERAS</span>
+    <h1>
+      La curiosidad
+      <br />
+      <em>no se gradúa.</em>
+    </h1>
+    <p>Reflexiones, herramientas y pequeñas ideas para aprender mejor y enseñar con más sentido.</p>
+  </section>
+  <section class="container page-content">
+    <div class="filter-row" role="group" aria-label="Filtrar artículos por tema">
+      <button type="button" class="filter-button" data-filter="all" aria-pressed="true">
+        Todas las ideas
+      </button>
+      {Object.entries(categories).map(([value, label]) => (
+        <button type="button" class="filter-button" data-filter={value} aria-pressed="false">
+          {label}
+        </button>
+      ))}
+    </div>
+    <p class="form-status" aria-live="polite" id="filter-status"></p>
+    <div class="post-grid">
+      {posts.map((post) => (
+        <PostCard post={post} />
+      ))}
+    </div>
+    {posts.length === 0 && <p class="empty-state">Pronto encontrarás nuevas ideas por aquí.</p>}
+  </section>
+  <script>
+    function setupFilters() {
+      document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((button) => {
+        if (button.dataset.ready) return;
+        button.dataset.ready = 'true';
+        button.addEventListener('click', () => {
+          document
+            .querySelectorAll('[data-filter]')
+            .forEach((el) => el.setAttribute('aria-pressed', String(el === button)));
+          let count = 0;
+          document.querySelectorAll<HTMLElement>('.post-card').forEach((card) => {
+            card.hidden =
+              button.dataset.filter !== 'all' && card.dataset.category !== button.dataset.filter;
+            if (!card.hidden) {
+              count++;
+              card.classList.add('is-visible');
+            }
+          });
+          const status = document.querySelector('#filter-status');
+          if (status)
+            status.textContent = count
+              ? `${count} ${count === 1 ? 'artículo disponible' : 'artículos disponibles'}.`
+              : 'Aún no hay artículos de este tema.';
+        });
+      });
+    }
+    setupFilters();
+    document.addEventListener('astro:page-load', setupFilters);
+  </script>
+</Layout>

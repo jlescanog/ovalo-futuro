@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { pages } from '../lib/pages';
+export function getStaticPaths() {
+  return Object.entries(pages).map(([page, content]) => ({ params: { page }, props: { content } }));
+}
+const { content } = Astro.props;
+---
+
+<Layout title={content.title} description={content.intro}>
+  <section class="container page-intro">
+    <span class="eyebrow">{content.label}</span>
+    <h1>
+      {content.title}
+      <br />
+      <em>{content.accent}</em>
+    </h1>
+    <p>{content.intro}</p>
+  </section>
+  <section class="container page-content info-grid">
+    <div class="prose">
+      {content.sections.map((section: { title: string; text: string }) => (
+        <section>
+          <h2>{section.title}</h2>
+          <p>{section.text}</p>
+        </section>
+      ))}
+    </div>
+    <aside class="side-panel">
+      <h2>
+        Una conversación
+        <br />
+        <em>puede abrir puertas.</em>
+      </h2>
+      <p>Cuéntame qué necesitas. Encontraremos juntos una forma de avanzar.</p>
+      <a class="button" href="/contacto">
+        Conversemos <Icon name="diagonal" size={17} />
+      </a>
+      <a class="text-link" href="/cursos">
+        Explorar los programas <Icon size={17} />
+      </a>
+    </aside>
+  </section>
+</Layout>

@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Layout title="Página no encontrada" noindex>
+  <section class="container page-intro">
+    <span class="eyebrow">404 · UN PEQUEÑO DESVÍO</span>
+    <h1>
+      Este camino
+      <br />
+      <em>no llega aquí.</em>
+    </h1>
+    <p>La página que buscas no está disponible. Siempre podemos volver a empezar.</p>
+  </section>
+  <section class="container page-content">
+    <a href="/" class="button">
+      Volver al inicio <Icon size={18} />
+    </a>
+  </section>
+</Layout>

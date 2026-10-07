@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import { categories, formatDate } from '../lib/site';
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+const { post } = Astro.props;
+const artText = {
+  ingles: 'Words open worlds.',
+  educacion: 'Otra forma de aprender.',
+  ia: 'El aula del mañana.',
+};
+---
+
+<article class="post-card" data-reveal data-category={post.data.category}>
+  <a href={`/blog/${post.id}`} class="post-image" tabindex="-1" aria-hidden="true">
+    {post.data.cover ? (
+      <img src={post.data.cover} alt="" width="700" height="440" loading="lazy" />
+    ) : (
+      <div class={`post-art post-art-${post.data.category}`}>
+        <span>Ó / JOURNAL</span>
+        <p>{artText[post.data.category]}</p>
+        <span class="post-art-symbol">
+          {post.data.category === 'ingles' ? 'Aa' : post.data.category === 'ia' ? '✳' : '↗'}
+        </span>
+      </div>
+    )}
+  </a>
+  <div class="post-meta">
+    <span>{categories[post.data.category]}</span>
+    <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+  </div>
+  <h3>
+    <a href={`/blog/${post.id}`}>
+      {post.data.title}
+      <Icon name="diagonal" size={19} />
+    </a>
+  </h3>
+  <p>{post.data.description}</p>
+</article>
