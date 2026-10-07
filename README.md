@@ -65,6 +65,12 @@ El redeploy toma los cambios del repositorio si el despliegue está conectado a 
 
 Documentación: [Astro en Hostinger](https://docs.astro.build/en/guides/deploy/hostinger/), [redeploy en Hostinger](https://www.hostinger.com/support/how-to-redeploy-a-node-js-application/).
 
+### Si el despliegue falla antes de compilar
+
+El registro debe mostrar `Application type: Astro`; si todavía muestra `Next.js`, cambiar el preset en Hostinger y guardar antes del redeploy.
+
+`packageManager` recomienda pnpm 11.19.0. Hostinger puede instalar con esa versión e invocar otra versión de pnpm 11 mediante Corepack al ejecutar la compilación. `pmOnFail: warn` en `pnpm-workspace.yaml` permite continuar con la versión del alojamiento y muestra una advertencia. El lockfile y las comprobaciones de dependencias se mantienen. Documentación: [configuración de pnpm](https://pnpm.io/settings#pmonfail).
+
 ## Contenido y contacto
 
 - `src/pages/index.astro`: composición y textos de la landing.
