@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import { courses } from '../../lib/courses';
+export function getStaticPaths() {
+  return Object.entries(courses).map(([slug, course]) => ({ params: { slug }, props: { course } }));
+}
+const { course } = Astro.props;
+---
+
+<Layout title={course.title} description={course.description}>
+  <section class="container page-intro">
+    <a href="/cursos" class="back-link">
+      ← Todos los programas
+    </a>
+    <span class="eyebrow">
+      {course.category} · {course.duration} · {course.level}
+    </span>
+    <h1>
+      {course.title}
+      <br />
+      <em>Abre nuevas posibilidades.</em>
+    </h1>
+    <p>{course.description}</p>
+  </section>
+  <section class="container page-content info-grid">
+    <div>
+      <h2>Lo que vamos a explorar.</h2>
+      <ol class="detail-list">
+        {course.modules.map((module: string, i: number) => (
+          <li>
+            <span>{String(i + 1).padStart(2, '0')}</span>
+            {module}
+          </li>
+        ))}
+      </ol>
+      <div class="prose">
+        <h2>Lo que te llevas.</h2>
+        <ul>
+          {course.outcomes.map((outcome: string) => (
+            <li>{outcome}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <aside class="side-panel">
+      <h2>
+        Tu camino
+        <br />
+        <em>empieza contigo.</em>
+      </h2>
+      <p>
+        Conversemos sobre tu nivel, tus objetivos y las próximas fechas. Diseñaremos el siguiente
+        paso para ti.
+      </p>
+      <div class="tags">
+        <span>{course.duration}</span>
+        <span>{course.level}</span>
+      </div>
+      <a class="button" href={`/contacto?interes=${encodeURIComponent(course.title)}`}>
+        Me interesa este programa <Icon name="diagonal" size={17} />
+      </a>
+    </aside>
+  </section>
+</Layout>

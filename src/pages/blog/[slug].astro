@@ -1,0 +1,77 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import { publishedPosts, categories, formatDate } from '../../lib/site';
+export async function getStaticPaths() {
+  return (await publishedPosts()).map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const readingTime = Math.max(1, Math.ceil((post.body || '').split(/\s+/).length / 200));
+---
+
+<Layout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.cover || undefined}
+>
+  <div class="container">
+    <header class="article-header">
+      <a href="/blog" class="back-link">
+        ← Volver al journal
+      </a>
+      <span class="eyebrow">{categories[post.data.category]}</span>
+      <h1>{post.data.title}</h1>
+      <p>{post.data.description}</p>
+      <div class="article-byline">
+        <span>Óvalo Futuro · Equipo editorial</span>
+        <time datetime={post.data.publishedAt.toISOString()}>
+          {formatDate(post.data.publishedAt)}
+        </time>
+        <span>{readingTime} min de lectura</span>
+      </div>
+    </header>
+    <article class="prose article-body">
+      {post.data.cover && (
+        <img
+          class="article-cover"
+          src={post.data.cover}
+          alt={post.data.coverAlt}
+          width="1000"
+          height="650"
+        />
+      )}
+      <Content />
+    </article>
+    <div class="article-bottom">
+      <span>Las buenas ideas se comparten.</span>
+      <button type="button" class="filter-button" id="share-article">
+        Copiar enlace <Icon size={15} />
+      </button>
+      <span id="share-status" aria-live="polite"></span>
+    </div>
+  </div>
+  <script>
+    function setupShare() {
+      const button = document.querySelector<HTMLButtonElement>('#share-article');
+      if (!button || button.dataset.ready) return;
+      button.dataset.ready = 'true';
+      button.addEventListener('click', async () => {
+        const status = document.querySelector('#share-status');
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          if (status) status.textContent = 'Enlace copiado.';
+        } catch {
+          if (status) status.textContent = 'Puedes copiar el enlace desde la barra de direcciones.';
+        }
+      });
+    }
+    setupShare();
+    document.addEventListener('astro:page-load', setupShare);
+  </script>
+</Layout>

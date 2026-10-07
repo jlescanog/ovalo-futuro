@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../lib/site';
+---
+
+<Layout title="Privacidad">
+  <section class="container page-intro">
+    <span class="eyebrow">INFORMACIÓN SOBRE EL SITIO</span>
+    <h1>
+      Tu información.
+      <br />
+      <em>Con claridad.</em>
+    </h1>
+    <p>Última actualización: 7 de octubre de 2026.</p>
+  </section>
+  <section class="container page-content prose">
+    <h2>Contacto</h2>
+    <p>
+      El formulario de esta web prepara un mensaje con tu nombre, área de interés y consulta. Al
+      continuar, se abre WhatsApp; el mensaje solo se envía cuando tú lo confirmas en esa
+      aplicación. Este formulario no guarda tus datos en una base de datos del sitio.
+    </p>
+    <h2>Servicios externos</h2>
+    <p>
+      Al abrir WhatsApp o tu aplicación de correo, el tratamiento de la información depende también
+      de sus respectivos proveedores. Evita incluir información sensible en tu primera consulta.
+    </p>
+    <h2>Contenido y navegación</h2>
+    <p>
+      Las imágenes y tipografías del sitio se sirven desde el mismo alojamiento. Esta versión no
+      incorpora herramientas de publicidad ni analítica de terceros. El proveedor de alojamiento
+      puede procesar registros técnicos necesarios para servir la página.
+    </p>
+    <h2>Consultas sobre tus datos</h2>
+    <p>
+      Si deseas consultar, corregir o solicitar la eliminación de información que hayas compartido
+      al contactar con Óvalo Futuro, escribe a <a href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+  </section>
+</Layout>

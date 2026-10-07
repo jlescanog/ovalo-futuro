@@ -1,0 +1,379 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PostCard from '../components/PostCard.astro';
+import { publishedPosts, whatsapp } from '../lib/site';
+const posts = (await publishedPosts()).slice(0, 3);
+const programs = [
+  {
+    n: '01',
+    icon: 'globe',
+    label: 'CONECTA CON EL MUNDO',
+    title: 'Inglés para la vida real.',
+    text: 'Inglés técnico y conversacional para comunicarte con confianza, en el trabajo y más allá.',
+    tags: ['Todos los niveles', '16 semanas'],
+    href: '/cursos/ingles',
+    class: 'sage',
+    decoration: 'Hello, world.',
+  },
+  {
+    n: '02',
+    icon: 'spark',
+    label: 'ENSEÑA CON NUEVAS IDEAS',
+    title: 'IA para docentes.',
+    text: 'Herramientas prácticas de inteligencia artificial para transformar tu enseñanza y personalizar el aprendizaje.',
+    tags: ['Para educadores', '10 semanas'],
+    href: '/cursos/ia-docentes',
+    class: 'sand',
+    decoration: 'Ideas que crecen.',
+  },
+  {
+    n: '03',
+    icon: 'book',
+    label: 'EXPLORA LO QUE VIENE',
+    title: 'IA para estudiantes.',
+    text: 'Una introducción práctica y creativa a la inteligencia artificial. Aprende haciendo, a tu propio ritmo.',
+    tags: ['Nivel inicial', '12 semanas'],
+    href: '/cursos/ia-alumnos',
+    class: 'lilac',
+    decoration: '¿Y si…?',
+  },
+];
+---
+
+<Layout>
+  <section class="hero container">
+    <div class="hero-copy">
+      <div class="eyebrow">
+        <span class="status-dot"></span> EDUCACIÓN CON UNA MIRADA GLOBAL
+      </div>
+      <h1>
+        Aprender
+        <br />
+        abre <em>mundos.</em>
+        <br />
+        <span class="hero-last">Hagámoslo juntos.</span>
+      </h1>
+      <p>
+        Inglés, mentoría y nuevas formas de enseñar.
+        <br class="desktop-break" /> Con Hassan, descubre hasta dónde puedes llegar.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="#programas">
+          Encuentra tu camino <Icon name="diagonal" size={18} />
+        </a>
+        <a class="text-link" href="#hassan">
+          Conoce a Hassan <Icon size={18} />
+        </a>
+      </div>
+      <div class="hero-note">
+        <span class="tiny-globe">
+          <Icon name="globe" size={22} />
+        </span>
+        <span>
+          Raíces en Perú y Pakistán.
+          <br />
+          <strong>Posibilidades sin fronteras.</strong>
+        </span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-photo">
+        <img
+          src="/images/learning.jpg"
+          alt="Estudiantes compartiendo ideas y aprendiendo juntos en un campus"
+          width="1000"
+          height="1200"
+          fetchpriority="high"
+        />
+        <div class="photo-caption">
+          <span>EL FUTURO SE APRENDE</span>
+          <p>
+            Una conversación.
+            <br />
+            Una idea. Un nuevo comienzo.
+          </p>
+        </div>
+      </div>
+      <div class="world-seal" aria-label="Aprender, conectar, transformar">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <defs>
+            <path id="seal-circle" d="M60,60 m-43,0 a43,43 0 1,1 86,0 a43,43 0 1,1 -86,0" />
+          </defs>
+          <text>
+            <textPath href="#seal-circle">APRENDER · CONECTAR · TRANSFORMAR · </textPath>
+          </text>
+        </svg>
+        <Icon name="spark" size={35} />
+      </div>
+      <div class="floating-note">
+        <span class="note-spark">✳</span>
+        <div>
+          Menos límites.
+          <br />
+          <em>Más posibilidades.</em>
+        </div>
+        <svg viewBox="0 0 90 35" aria-hidden="true">
+          <path
+            d="M3 17C25 4 66 4 83 18M71 9l13 10-17 9"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+          />
+        </svg>
+      </div>
+      <span class="visual-index">01 / EL APRENDIZAJE ES UN VIAJE</span>
+    </div>
+    <a href="#filosofia" class="scroll-hint">
+      <span>UN POCO MÁS ABAJO</span>
+      <span>↓</span>
+    </a>
+  </section>
+  <section class="belief-strip" id="filosofia">
+    <div class="container">
+      <span>Un idioma abre puertas.</span>
+      <Icon name="spark" size={25} />
+      <span>Una idea cambia una clase.</span>
+      <Icon name="spark" size={25} />
+      <span>Un mentor hace la diferencia.</span>
+    </div>
+  </section>
+  <section class="section container programs" id="programas">
+    <div class="section-heading" data-reveal>
+      <div>
+        <span class="eyebrow">01 — ENCUENTRA TU CAMINO</span>
+        <h2>
+          Tu siguiente paso
+          <br />
+          empieza <em>aquí.</em>
+        </h2>
+      </div>
+      <p>
+        Cada persona aprende distinto.
+        <br />
+        Hay un camino para ti, para tu aula
+        <br />y para lo que quieres construir.
+      </p>
+    </div>
+    <div class="program-grid">
+      {programs.map((program) => (
+        <a href={program.href} class={`program-card ${program.class}`} data-reveal>
+          <div class="program-art">
+            <span class="art-index">{program.n} /</span>
+            <Icon name={program.icon} size={60} />
+            <span class="art-phrase">{program.decoration}</span>
+            <span class="art-orbit" aria-hidden="true"></span>
+          </div>
+          <div class="program-body">
+            <span class="eyebrow">{program.label}</span>
+            <h3>{program.title}</h3>
+            <p>{program.text}</p>
+            <div class="tags">
+              {program.tags.map((tag) => (
+                <span>{tag}</span>
+              ))}
+            </div>
+            <div class="card-link">
+              Explorar programa{' '}
+              <span>
+                <Icon name="diagonal" size={20} />
+              </span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+    <div class="program-footnote">
+      <span>¿Prefieres un acompañamiento individual?</span>
+      <a class="text-link" href="/mentorias">
+        Descubre las mentorías 1 a 1 <Icon size={17} />
+      </a>
+    </div>
+  </section>
+  <section class="about-section" id="hassan">
+    <div class="container about-grid">
+      <div class="about-art" data-reveal>
+        <div class="culture-card culture-peru">
+          <span>12° S · 77° O</span>
+          <span class="culture-name">Perú</span>
+          <svg viewBox="0 0 300 120" aria-hidden="true">
+            <path d="m0 120 70-100 65 100M80 120 180 0l120 120M145 42l35-42 41 42-23-8-18 12-17-12Z" />
+          </svg>
+          <span>DONDE ESTÁN LAS RAÍCES</span>
+        </div>
+        <div class="culture-card culture-pakistan">
+          <span>30° N · 70° E</span>
+          <span class="culture-name">Pakistán</span>
+          <svg viewBox="0 0 260 130" aria-hidden="true">
+            <path d="M20 130V70h20v60M220 130V70h20v60M65 130V70h130v60M100 70V45q30-65 60 0v25M130 0v-12M20 70l10-16 10 16M220 70l10-16 10 16" />
+          </svg>
+          <span>DONDE SE AMPLÍA LA MIRADA</span>
+        </div>
+        <span class="culture-connector" aria-hidden="true">
+          ↗
+        </span>
+        <span class="art-caption">DOS CULTURAS. MUCHAS FORMAS DE VER EL MUNDO.</span>
+      </div>
+      <div class="about-copy" data-reveal>
+        <span class="eyebrow">02 — EL LADO HUMANO</span>
+        <h2>
+          Hola, soy Hassan.
+          <br />
+          <em>Tu próximo aliado.</em>
+        </h2>
+        <p class="lead">Creo en una educación que conecta personas, culturas y posibilidades.</p>
+        <p>
+          Mi identidad peruana y pakistaní me ha dado una mirada entre culturas. Esa perspectiva
+          acompaña mi trabajo como profesor de inglés, mentor y asesor de escuelas y colegios.
+        </p>
+        <p>
+          En Óvalo Futuro, combinamos tecnología, mentoría humana y acceso equitativo. Porque
+          aprender no debería sentirse como seguir una receta, sino como descubrir tu propio camino.
+        </p>
+        <a class="text-link" href="/nosotros">
+          Un poco más sobre mí <Icon name="diagonal" size={19} />
+        </a>
+        <div class="signature">
+          Hassan<span>EDUCADOR · MENTOR · PUENTE ENTRE CULTURAS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section container schools" id="colegios">
+    <div class="school-panel" data-reveal>
+      <div class="school-copy">
+        <span class="eyebrow">03 — PARA ESCUELAS Y COLEGIOS</span>
+        <h2>
+          El futuro de la educación
+          <br />
+          se construye <em>en equipo.</em>
+        </h2>
+        <p>
+          Acompaño a instituciones que quieren transformar su forma de enseñar. De la idea a la
+          práctica, con una mirada humana y herramientas para el mundo de hoy.
+        </p>
+        <ul class="check-list">
+          <li>
+            <Icon name="check" /> Asesoría educativa adaptada a tu institución
+          </li>
+          <li>
+            <Icon name="check" /> Formación docente en inglés y herramientas de IA
+          </li>
+          <li>
+            <Icon name="check" /> Metodologías activas y aprendizaje con propósito
+          </li>
+        </ul>
+        <a class="button button-light" href="/contacto?interes=colegios">
+          Hablemos de tu colegio <Icon name="diagonal" size={18} />
+        </a>
+      </div>
+      <div class="school-art" aria-hidden="true">
+        <span class="school-label">EL CAMBIO EMPIEZA EN EL AULA</span>
+        <div class="arch arch-one"></div>
+        <div class="arch arch-two"></div>
+        <div class="arch arch-three"></div>
+        <span class="school-star">✳</span>
+        <p>
+          Enseñar.
+          <br />
+          <em>Inspirar.</em>
+          <br />
+          Transformar.
+        </p>
+        <span class="school-art-bottom">UNA NUEVA PERSPECTIVA ↗</span>
+      </div>
+    </div>
+  </section>
+  <section class="method-section">
+    <div class="container">
+      <div class="section-heading" data-reveal>
+        <div>
+          <span class="eyebrow">EL CÓMO IMPORTA TANTO COMO EL QUÉ</span>
+          <h2>
+            Aprender con sentido.
+            <br />
+            <em>Avanzar a tu manera.</em>
+          </h2>
+        </div>
+        <a class="text-link" href="/metodologia">
+          Nuestra metodología <Icon name="diagonal" size={18} />
+        </a>
+      </div>
+      <div class="method-grid">
+        {[
+          [
+            '01',
+            'Primero, te escucho.',
+            'Entendemos tu punto de partida, tus objetivos y lo que necesitas. Cada camino comienza con una conversación.',
+          ],
+          [
+            '02',
+            'Aprendemos haciendo.',
+            'Situaciones reales, proyectos y herramientas útiles. El conocimiento cobra sentido cuando lo pones en práctica.',
+          ],
+          [
+            '03',
+            'Crecemos en el camino.',
+            'Acompañamiento cercano, retroalimentación y metas claras. Tú decides el ritmo; juntos mantenemos el rumbo.',
+          ],
+        ].map(([n, title, text]) => (
+          <div class="method-item" data-reveal>
+            <span>{n}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section container journal">
+    <div class="section-heading" data-reveal>
+      <div>
+        <span class="eyebrow">04 — EL JOURNAL</span>
+        <h2>
+          Ideas para seguir
+          <br />
+          <em>aprendiendo.</em>
+        </h2>
+      </div>
+      <a class="text-link" href="/blog">
+        Todas las lecturas <Icon name="diagonal" size={18} />
+      </a>
+    </div>
+    <div class="post-grid">
+      {posts.map((post) => (
+        <PostCard post={post} />
+      ))}
+    </div>
+  </section>
+  <section class="container opportunity" data-reveal>
+    <Icon name="globe" size={40} />
+    <div>
+      <span class="eyebrow">MÁS OPORTUNIDADES, MENOS BARRERAS</span>
+      <h3>El talento merece una oportunidad.</h3>
+      <p>Conoce el programa de becas y nuestras opciones de aprendizaje a distancia.</p>
+    </div>
+    <a class="text-link" href="/becas">
+      Conocer las becas <Icon name="diagonal" size={20} />
+    </a>
+  </section>
+  <section class="contact-banner container" data-reveal>
+    <span class="eyebrow">EL PRIMER PASO ES UNA CONVERSACIÓN</span>
+    <h2>
+      ¿Y si empezamos
+      <br />
+      <em>algo bueno?</em>
+      <span aria-hidden="true">↗</span>
+    </h2>
+    <div>
+      <p>
+        Cuéntame qué quieres aprender o transformar.
+        <br />
+        Encontraremos un camino juntos.
+      </p>
+      <a class="button" href={whatsapp()} target="_blank" rel="noopener noreferrer">
+        Conversemos por WhatsApp <Icon name="diagonal" size={18} />
+      </a>
+    </div>
+  </section>
+</Layout>
