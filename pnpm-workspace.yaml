@@ -1,3 +1,5 @@
+# Hostinger may invoke a different pnpm 11 release through Corepack during builds.
+pmOnFail: warn
 allowBuilds:
   esbuild: true
   sharp: false
